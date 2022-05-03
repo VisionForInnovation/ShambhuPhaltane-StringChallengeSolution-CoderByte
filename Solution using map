@@ -1,0 +1,123 @@
+/*Have the function StringChallenge (str) read the str parameter being passed which will contain the written out version of the numbers 0-9 and the words "minus" or "plus" and convert the expression into an actual final number written out as well. For example: if str is "foursixminustwotwop zero" then this converts to "46-22 +10" which evaluates to 34 and your program should return the final string threefour. If your final answer is negative it should include the word "negative."
+
+Examples
+
+Input: "onezeropluseight" Output: oneeight
+
+Input: "oneminusoneone" Output: negativeonezero
+*/
+
+
+
+
+
+import java.util.Arrays;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+
+public class DemoStringChallenge {
+	
+	
+	public static void main(String [] args)
+	{
+		Map<String,Integer> newMap = new HashMap<>();
+    
+    
+		String inputString = "threezeroeightminusnine";   //this input is for test 
+    
+    
+		newMap.put("zero", 0);
+		newMap.put("one", 1);
+		newMap.put("two", 2);
+		newMap.put("three", 3);
+		newMap.put("four", 4);
+		newMap.put("five", 5);
+		newMap.put("six", 6);
+		newMap.put("seven", 7);
+		newMap.put("eight", 8);
+		newMap.put("nine", 9);
+		
+		
+		String word="";	
+		int sum=0;
+		int number=0;
+		
+		int flag =0;
+		
+		
+		for(int i =0;i<inputString.length();i++)
+		{
+			word=word+inputString.charAt(i);
+			for(Entry<String, Integer> obj : newMap.entrySet())
+			{
+				
+				
+				if(word.equals(obj.getKey()))
+				{
+					
+					number=number*10 +obj.getValue();
+					word="";
+					
+				}
+				
+				
+			}
+				if(word.equals("plus"))
+				{
+					sum+=number;
+					word="";
+					number=0;
+					flag = 1;
+				}
+				if(word.equals("minus"))
+				{
+					sum+=number;
+					word="";
+					number=0;
+					flag=0;
+					
+					
+				}
+					
+	
+			}
+		
+		if(flag==1)
+		{
+			sum+=number;
+		}
+		if(flag==0)
+		{
+			sum-=number;
+		}
+		
+		int temp =0;
+		
+		String newStr = "";
+		while(sum>0)
+		{
+			temp = sum%10;
+			for(Entry<String, Integer> obj : newMap.entrySet())
+			{
+				if(temp == obj.getValue())
+				{
+					newStr=obj.getKey()+newStr;
+					
+					sum = sum/10;
+				}
+				
+				
+			}
+			
+			
+			
+			
+		}
+		
+		System.out.println(newStr);
+		}
+	
+		
+	}
